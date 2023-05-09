@@ -1,8 +1,10 @@
-// TODO: Include packages needed for this application
+//Included packages needed for this application
 
+const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 const fs = require("fs");
 
+//data object to keep things all collected in one place
 const data = {
   title: "Example",
   description: "Description",
@@ -19,22 +21,76 @@ const data = {
   reachMe: "ReachMe",
   github: "GitHub UserName",
   email: "Email Address",
+
+  assignment(data, values) {
+    data.title = values.title;
+    data.descriptionContent = values.description;
+    data.installationContent = values.installation;
+    data.contributionContent = values.contribution;
+    data.testingContent = values.testing;
+    data.licenseContent = values.license;
+    data.reachMe = values.reachMe;
+    data.questions = values.questions;
+    data.github = values.github;
+    data.email = values.email;
+  },
 };
-// TODO: Create an array of questions for user input
-const questions = [
-  "Please Enter the title of your Project",
-  "Please Enter a Description of your Project",
-  "Please Enter a Table of Contents",
-  "Please Enter your Installation Instructions",
-  "Please Enter the Contribution Guidelines",
-  "Please Enter the Testing Instructions",
-  "Please Enter the License Information",
-  "Please Enter instructions on how people can reach you for Questions",
-  "Please Enter your GitHub username",
-  "Please Enter your Email Address",
+//An array of questions for user input
+const prompts = [
+  {
+    name: "title",
+    type: "text",
+    message: "Please Enter the title of your Project",
+  },
+  {
+    name: "description",
+    type: "text",
+    message: "Please Enter a Description of your Project",
+  },
+  {
+    name: "installation",
+    type: "text",
+    message: "Please Enter your Installation Instructions",
+  },
+  {
+    name: "contributions",
+    type: "text",
+    message: "Please Enter the Contribution Guidelines",
+  },
+  {
+    name: "testing",
+    type: "text",
+    message: "Please Enter the Testing Instructions",
+  },
+  {
+    name: "license",
+    type: "text",
+    message: "Please Enter the License Information",
+  },
+  {
+    name: "questions",
+    type: "text",
+    message:
+      "Please Enter instructions on how people can reach you for Questions",
+  },
+  {
+    name: "reachMe",
+    type: "text",
+    message: "Please Enter Instructions on how people should contact you",
+  },
+  {
+    name: "github",
+    type: "text",
+    message: "Please Enter your GitHub username",
+  },
+  {
+    name: "email",
+    type: "text",
+    message: "Please Enter your Email Address",
+  },
 ];
 
-// TODO: Create a function to write README file
+//Function writes the information provided into a file
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, function (err) {
     if (err) {
@@ -43,9 +99,15 @@ function writeToFile(fileName, data) {
     console.log("completed");
   });
 }
+async function questionPrompt(data, prompts) {
+  const answers = await inquirer.prompt(prompts).then((answers) => {
+    data.assignment(data, answers);
+  });
+}
 
-// TODO: Create a function to initialize app
+//This function initializes the app
 function init() {
+  questionPrompt(data, prompts);
   let markdown = generateMarkdown(data);
   writeToFile("README.md", markdown);
 }

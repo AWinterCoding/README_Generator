@@ -6,11 +6,11 @@ Description Content
 
 ## Table of Contents
 
-[Installation](#installation)
-[Contributions](#contributions)
-[Testing](#testing)
-[License](#license)
-[Questions](#questions)
+*[Installation](#installation)
+*[Contributions](#contributions)
+*[Testing](#testing)
+*[License](#license)
+*[Questions](#questions)
 
 ## Installation
 
