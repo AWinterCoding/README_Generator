@@ -3,6 +3,7 @@
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 const fs = require("fs");
+const axios = require("axios");
 
 //data object to keep things all collected in one place
 const data = {
@@ -18,8 +19,8 @@ const data = {
   license: "License",
   licenseContent: "License Content",
   questions: "Questions",
-  reachMe: "ReachMe",
   github: "GitHub UserName",
+  githubURL: "URL",
   email: "Email Address",
 
   assignment(data, values) {
@@ -29,7 +30,6 @@ const data = {
     data.contributionContent = values.contribution;
     data.testingContent = values.testing;
     data.licenseContent = values.license;
-    data.reachMe = values.reachMe;
     data.questions = values.questions;
     data.github = values.github;
     data.email = values.email;
@@ -53,7 +53,7 @@ const prompts = [
     message: "Please Enter your Installation Instructions",
   },
   {
-    name: "contributions",
+    name: "contribution",
     type: "text",
     message: "Please Enter the Contribution Guidelines",
   },
@@ -64,8 +64,19 @@ const prompts = [
   },
   {
     name: "license",
-    type: "text",
+    type: "list",
     message: "Please Enter the License Information",
+    choices: [
+      "MIT",
+      "GPLv2",
+      "Apache",
+      "GPLv3",
+      "BSD3-clause",
+      "Unlicense",
+      "BSD 2-clause",
+      "LGPLv3",
+      "AGPLv3",
+    ],
   },
   {
     name: "questions",
@@ -74,14 +85,10 @@ const prompts = [
       "Please Enter instructions on how people can reach you for Questions",
   },
   {
-    name: "reachMe",
-    type: "text",
-    message: "Please Enter Instructions on how people should contact you",
-  },
-  {
     name: "github",
     type: "text",
     message: "Please Enter your GitHub username",
+    validate: getGitHubUser,
   },
   {
     name: "email",
@@ -99,10 +106,35 @@ function writeToFile(fileName, data) {
     console.log("completed");
   });
 }
+
+//runs through the questions with inquirer and retrieves the results to utilize later
 async function questionPrompt(data, prompts) {
   const answers = await inquirer.prompt(prompts).then((answers) => {
     data.assignment(data, answers);
+    console.log(data);
   });
+}
+
+//grabs the username from the input to grab the url to the github repository dynamically
+async function getGitHubUser(input) {
+  try {
+    const username = input;
+    try {
+      const response = await axios.get(
+        `https://api.github.com/users/${username}`
+      );
+      console.log(response.data.html_url);
+      data.githubURL = response.data.html_url;
+      return true;
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.log("User not found");
+      } else {
+        console.error("An error occurred:", error);
+      }
+    }
+  } finally {
+  }
 }
 
 //This function initializes the app
