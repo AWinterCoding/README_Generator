@@ -8,28 +8,26 @@ const axios = require("axios");
 //data object to keep things all collected in one place
 const data = {
   title: "Example",
-  description: "Description",
-  descriptionContent: "Description Content",
-  installation: "Installation",
-  installationContent: "Installation Content",
-  contribution: "Contribution",
-  contributionContent: "Contribution Content",
-  testing: "Testing",
-  testingContent: "Testing Content",
-  license: "License",
-  licenseContent: "License Content",
-  questions: "Questions",
+  description: "Description Content",
+  installation: "Installation Content",
+  contribution: "Contribution Content",
+  testing: "Testing Content",
+  licenseBadge: "License Badge",
+  licenseLink: "License Link",
+  licenseDescription: "License Description",
   github: "GitHub UserName",
   githubURL: "URL",
   email: "Email Address",
 
   assignment(data, values) {
     data.title = values.title;
-    data.descriptionContent = values.description;
-    data.installationContent = values.installation;
-    data.contributionContent = values.contribution;
-    data.testingContent = values.testing;
-    data.licenseContent = values.license;
+    data.description = values.description;
+    data.installation = values.installation;
+    data.contribution = values.contribution;
+    data.testing = values.testing;
+    data.licenseBadge = generateMarkdown.licenseBadge(values.license);
+    data.licenseLink = generateMarkdown.licenseLink(values.license);
+    data.licenseDescription = generateMarkdown.licenseSection(values.license);
     data.questions = values.questions;
     data.github = values.github;
     data.email = values.email;
@@ -111,6 +109,8 @@ function writeToFile(fileName, data) {
 async function questionPrompt(data, prompts) {
   const answers = await inquirer.prompt(prompts).then((answers) => {
     data.assignment(data, answers);
+    let markdown = generateMarkdown.markdown(data);
+    writeToFile("README.md", markdown);
     console.log(data);
   });
 }
@@ -140,8 +140,6 @@ async function getGitHubUser(input) {
 //This function initializes the app
 function init() {
   questionPrompt(data, prompts);
-  let markdown = generateMarkdown(data);
-  writeToFile("README.md", markdown);
 }
 
 // Function call to initialize app
