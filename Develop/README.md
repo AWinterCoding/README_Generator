@@ -1,9 +1,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  # title
+  
+# README Generator
 
 ## Description
 
-description
+This is a generator to automate the process of generating comprehensive README files
 
 ## Table of Contents
 
@@ -15,15 +16,15 @@ description
 
 ## Installation
 
-installation
+You will want to pull the code off github, and from there be sure to have node.js installed along with inquirer, axiom, and node fetch
 
 ## Contribution
 
-contribution
+I am more than willing to accept any suggestions are welome via my buisiness email, any bugs or issues can be submitted in the issue tracker
 
 ## Testing
 
-testing
+N/A
 
 ## License
 
@@ -32,10 +33,8 @@ This Project is Licensed under the The MIT License
 
 ## Questions
 
-undefined
-
 AWinterCoding
 
 https://github.com/AWinterCoding
 
-thumbspurcell@gmail.com
+awinterdrovia@gmail.com

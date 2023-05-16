@@ -111,7 +111,6 @@ async function questionPrompt(data, prompts) {
     data.assignment(data, answers);
     let markdown = generateMarkdown.markdown(data);
     writeToFile("README.md", markdown);
-    console.log(data);
   });
 }
 
