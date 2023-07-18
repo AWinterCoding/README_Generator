@@ -1,10 +1,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   
-# README Generator
+# Company CMS Database
 
 ## Description
 
-This is a generator to automate the process of generating comprehensive README files
+A content management system for a simple SQL database.
 
 ## Table of Contents
 
@@ -16,17 +16,15 @@ This is a generator to automate the process of generating comprehensive README f
 
 ## Installation
 
-You will want to pull the code off github, and from there be sure to have node.js installed along with inquirer, axiom, and node fetch
-
-Below is a video outlining the usage of this application and further instruction: https://drive.google.com/file/d/1Na9Kak4A5_UeQ4cWCGhbnLCd84hJL-FQ/view
+For installation please be sure to pull down the code, run npm init, you will need to install express, mysql2, and inquirer, for inquirer please be sure to install 8.2.4 no version later otherwise the program will break. You will also need SQL, more information on installation for each of these please refer to each of these software and packages documentation.
 
 ## Contribution
 
-I am more than willing to accept any suggestions are welome via my buisiness email, any bugs or issues can be submitted in the issue tracker
+For any contributions please submit them either via my buisiness email below or if its a bug, in the feedback/bug tracker
 
 ## Testing
 
-N/A
+Testing is in parallel to the function of the app, anything aditional will require modifications to the code, do so at your own risk
 
 ## License
 
